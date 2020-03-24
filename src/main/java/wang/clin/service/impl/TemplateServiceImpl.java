@@ -13,7 +13,6 @@ import wang.clin.service.TemplateService;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -64,13 +63,13 @@ public class TemplateServiceImpl implements TemplateService {
      * 注册指定包下面的所有处理器
      */
     private void register() {
-        Set<Class<?>> classes = ClassUtil.scanPackageByAnnotation(
+        var classes = ClassUtil.scanPackageByAnnotation(
                 HANDLER_PACKAGE, TemplateHandler.class);
-        for (Class<?> clazz : classes) {
-            TemplateHandler annotation = clazz.getAnnotation(TemplateHandler.class);
-            String service = annotation.service(); // 获取自定义spring bean名字
+        for (var clazz : classes) {
+            var annotation = clazz.getAnnotation(TemplateHandler.class);
+            var service = annotation.service(); // 获取自定义spring bean名字
             /* 没有自定义bean名字的使用spring bean命名规则生成名字 */
-            String serviceName = StrUtil.isNotBlank(service) ? service
+            var serviceName = StrUtil.isNotBlank(service) ? service
                     : StrUtil.lowerFirst(clazz.getSimpleName());
             handlers.put(annotation.template(), serviceName);
         }

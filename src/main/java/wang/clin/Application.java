@@ -1,13 +1,12 @@
 package wang.clin;
 
 import com.alibaba.fastjson.JSON;
-import wang.clin.pojo.TemplateRequestBO;
-import wang.clin.pojo.TemplateResponseBO;
-import wang.clin.service.TemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import wang.clin.pojo.TemplateRequestBO;
+import wang.clin.service.TemplateService;
 
 /**
  * Hello world!
@@ -28,9 +27,9 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        TemplateRequestBO request = TemplateRequestBO.builder().template("0002")
+        var request = TemplateRequestBO.builder().template("0002")
                 .templateUrl("http://www.google.com").data("test data").build();
-        TemplateResponseBO response = templateService.hand(request);
+        var response = templateService.hand(request);
         log.warn("处理结果 response: {}", JSON.toJSONString(response));
     }
 }

@@ -22,11 +22,11 @@ public abstract class AbstractTemplateHandlerService implements TemplateHandlerS
     @Override
     public TemplateResponseBO hand(TemplateRequestBO request) {
         /* 下载模板图片 */
-        Image image = templateOssService.download(request.getTemplateUrl());
+        var image = templateOssService.download(request.getTemplateUrl());
         /* 调用实现类处理画图动作 */
-        Image result = hand(image, request.getData());
+        var result = hand(image, request.getData());
         /* 将结果上传到对象存储 */
-        String url = templateOssService.upload(result);
+        var url = templateOssService.upload(result);
         /* 返回处理结果图片地址 */
         return TemplateResponseBO.builder().url(url).build();
     }
